@@ -1,0 +1,60 @@
+.commentBoxOutter {
+            background: #f2f2f2;
+            border-bottom: 1px solid #999;
+            }
+            .commentBoxInner {
+            padding: 20px;
+            }
+            .notebar {
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            padding: 5px 5px;
+            }
+            .th_right {
+            width: 49%;
+            display: inline-block;
+            }
+            .th_left {
+            width: 49%;
+            display: inline-block;
+            }
+            .commentBoxOutter {
+            background: #f2f2f2;
+            border-bottom: 1px solid #999;
+            }
+            .commentBoxInner {
+            padding: 20px;
+            }
+            .notebar {
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            padding: 5px 5px;
+            }
+            #invoice td,
+            #invoice th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            }
+            #invoice tr:nth-child(even) {
+            background-color: #f2f2f2;
+            }
+            #custominvoiceers tr:hover {
+            background-color: #ddd;
+            }
+            #invoice th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #333333;
+            color: white;
+            }
+            img.logo_new {
+            width: 90px;
+            padding: 10px 0px 0px;
+            }
+
+@media(max-width: 991px){
+      #ShowInvoice{
+            overflow: auto;
+      }
+}

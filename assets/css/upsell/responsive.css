@@ -1,0 +1,474 @@
+
+@media(max-width: 1199px){
+	.upsell2 .big_text {
+		font-size: 63px;
+	}
+
+	.upsell3 .big_text span {
+	    font-size: 118px;
+	}
+}
+@media(max-width: 991px){
+	.product_wrap{
+		width: 100%;
+	}
+	.product_left{
+		width: 205px;
+	}
+	.product_content{
+		padding-left: 170px;
+	}
+	.product_content h2{
+		left: -25px;
+		font-size: 25px;
+	}
+	.big_text{
+		font-size: 55px;
+		line-height: 60px;
+	}
+	.big_text span{
+	   margin-left: 30px;
+	   font-size: 95px;
+	}
+	.price_area span{
+		font-size: 57px;
+	}
+	.price_tagD {
+	    width: 135px;
+	    top:7px;
+	}
+	.pricepic{
+		margin-left: 10px;
+	}
+	.upsell2 .big_text {
+    	font-size: 45px;
+	}
+	.upsell2 .big_text span {
+    	font-size: 85px;
+	}
+	.upsell2 .sub_text {
+    	font-size: 25px;
+	}
+
+
+	.product_pic{margin-top:90px;}
+	.upBottlebig{right:-10%;}
+}
+
+@media(max-width: 767px){
+	.badge{
+		width: 100px;
+	}
+	.checkout_btn{
+		width: 90%;
+	}
+	.checkout_btn:after{
+		right: 30px;
+	}
+	.big_text{
+		font-size:43px;
+		line-height: 80px;
+	}
+	.big_text span{
+		margin-left:10px;
+		font-size: 88px;
+	}
+	.price_area{
+		font-size: 16px;
+	}
+	.price_tagD {
+    	width: 115px;
+    	top: 30px;
+	}
+	.upsell2 .product_left {
+    	width: 185px;
+	}
+	.upsell2 .product_content {
+	}
+	.upsell2 .big_text {
+    	font-size: 26px;
+    	line-height: 50px;
+	}
+	.upsell2 .big_text span {
+    	font-size: 60px;
+	}
+	.upsell2 .sub_text {
+    	font-size: 14px;
+	}
+	.upsell2 .price_tagD {
+	    top: -6px;
+	}
+	.big_text{
+		padding-right: 120px;
+	}
+	.pricepic {
+		width: 110px;
+		font-size: 30px;
+		margin-left: 10px;
+		background-size: 100%;
+	}
+	.pricepic span{
+		font-size: 30px;
+	}
+	.upsell3 .big_text {
+    	font-size: 40px;
+    	line-height: 55px;
+	}
+	.upsell3 .big_text span {
+    	font-size: 62px;
+	}
+
+
+	.upBottlebig{right:-5%;}
+	.upBottlesmall{left:-10%;}
+}
+@media(min-width: 640px) and (max-width:767px){
+	.upsell3 .sub_text{
+		margin-top: 95px;
+	}
+}
+@media(max-width: 640px){
+	.header_upsell span{
+		width: 260px;
+	}
+	.body_content p{
+		font-size: 22px;
+	}
+	.price_tagD{
+		width: 115px;
+	}
+	.product_content h2{
+		font-size:19px;
+	}
+	.badge{
+		left: 50%;
+		top: inherit;
+	    transform: translateX(-50%);
+	    bottom: -50px;
+	}
+	.sub_text {
+    	font-size: 15px;
+	}
+	.product_content p{
+		font-size: 15px;
+	}
+	.price_area span {
+    	font-size:27px;
+    	margin-left: 5px;
+	}
+	.upsell2 .big_text {
+    	font-size: 22px;
+	}
+	.upsell2 .big_text span {
+    	font-size: 41px;
+	}
+	.price_tagD {
+		top: 5px;
+	}
+	.upsell3 .product_content h2 {
+		left: 5px;
+	}
+	.upsell3 .sub_text{
+		margin-top: 95px;
+	}
+	.product_left {
+    	width: 225px;
+	}
+	.upsell3 .product_left {
+    	width:165px;
+	}
+	.upsell3 .badge {
+		width: 100px;
+	    position: absolute;
+	    top: 0px;
+	    bottom: inherit;
+	    left: -15px;
+	    transform: inherit;
+	}
+
+
+.product_pic {margin-top: 50px;margin-bottom: 50px;}
+
+}
+@media(max-width: 575px){
+	.offer_tag{
+		width: 80px;
+	}
+	.header_upsell span {
+    	width: 155px;
+	}
+	.body_content h1 {
+    	font-size: 25px;
+	}
+	.body_content p {
+    	font-size: 18px;
+	}
+	.product_content p{
+		font-size: 15px;
+	}
+	.checkout_btn{
+		font-size: 22px;
+		height: auto;
+	}
+	.checkout_btn:after {
+    	right: 8px;
+	}
+	.dont_text {
+    	font-size: 10px;
+	}
+	.product_left {
+    	width: 165px;
+	}
+	.product_content {
+    	padding-left: 170px;
+	}
+	.upsell2 .price_tagD {
+    	width: 87px;
+	}
+	.upsell2 .pricepic {
+	    width: 60px;
+	    height: 60px;
+	    margin-top: -57px;
+	    font-size: 18px;
+	    padding-top: 13px;
+	    line-height: 18px;
+	}
+	.upsell2 .pricepic span {
+    	font-size: 20px;
+	}
+	.upsell2 .pricepic span:after {
+    	width: 33px;
+    	left: 10px;
+	}
+	.upsell3 .big_text {
+    	font-size: 36px;
+	}
+	.product_pic {
+    	margin-top: 50px;
+	}
+	.badge{
+	    bottom: -100px;
+	}
+	.upsell2 .big_text {
+    	padding-right: 90px;
+	}
+	.upsell2 .product_pic {
+    	margin-top: 50px;
+	}
+	.upsell2 .sub_text {
+    	margin-top: 25px;
+	}
+	.upsell2 .badge {
+    	bottom: -80px;
+	}
+	.upsell2 .product_left {
+    	width: 165px;
+	}
+	.upsell3 .product_content {
+    	padding-left:170px;
+	}
+}
+
+@media(max-width:480px){
+	.product_left {
+    	width: 155px;
+	}
+	.badge {
+		width: 90px;
+	}
+	.product_content {
+    	padding-left: 170px;
+	}
+	.product_content h2 {
+    	font-size: 17px;
+	}
+	.big_text {
+    	font-size: 40px;
+    	line-height: 56px;
+	}
+	.big_text span{
+		font-size: 80px;
+	}
+	.sub_text{
+		font-size:13px;
+		margin-top: 22px;
+	}
+	.product_content p {
+    	font-size: 13px;
+    	margin-bottom: 10px;
+	}
+	.price_area {
+    	font-size: 14px;
+	}
+	.price_area span {
+    	font-size: 25px;
+	}
+	.pricepic {
+	    width:70px;
+	    height: 70px;
+	    margin-left: 25px;
+	    padding-top: 8px;
+	    line-height: 25px;
+	    font-size: 23px;
+	}
+	.pricepic span{
+		font-size: 21px;
+	}
+	.pricepic span:after{
+		width: 42px;
+		background-size: 100%;
+		left: 15px;
+	}
+	.upsell2 .product_left {
+    	width: 100px;
+	}
+	.upsell2 .product_content {
+    	padding-left: 100px;
+	}
+	.upsell2 .big_text {
+    	padding-right: 70px;
+    	line-height: 15px;
+	}
+	.upsell2 .big_text span {
+    	font-size: 31px;
+    	margin-top: 10px;
+	}
+	.upsell2 .sub_text {
+	    font-size: 11px;
+	    margin-bottom: 2px;
+	}
+	.upsell3 .big_text {
+    	font-size: 21px;
+    	line-height: 32px;
+    	padding-right: 70px;
+	}
+	.upsell3 .big_text span {
+    	font-size: 30px;
+	}
+	.upsell3 .sub_text {
+    	margin-top: 25px;
+	}
+	.product_pic {
+    	margin-top:25px;
+	}
+	.badge {
+    	bottom: -55px;
+	}
+	.upsell2 .badge {
+   	 	bottom: -57px;
+
+	}
+	.upsell3 .product_left {
+    	width: 100px;
+	}
+	.upsell3 .product_content {
+    	padding-left: 110px;
+	}
+	.upsell3 .badge{
+		left: -35px;
+	}
+}
+@media(max-width:479px){
+	.product_left {
+    	width: 110px;
+	}
+	.product_content {
+    	padding-left: 110px;
+	}
+	.big_text {
+    	font-size: 25px;
+    	line-height:28px;
+    	margin-top: 10px;
+	}
+	.product_content h2 {
+    	font-size: 15px;
+	}
+	.big_text span {
+    	font-size: 40px;
+	}
+	.sub_text {
+	    font-size: 11px;
+	    margin-top: 10px;
+	}
+	.product_content p {
+	    font-size: 10px;
+	    margin-bottom: 10px;
+	    line-height: 14px;
+	}
+	.price_area {
+    	font-size: 12px;
+	}
+	.price_area span {
+    	font-size: 20px;
+	}
+	.price_tagD {
+    	width: 75px;
+    	top: 15px;
+	}
+	.pricepic {
+	    width: 60px;
+	    height: 60px;
+	    margin-top: -57px;
+	    font-size: 18px;
+	    padding-top: 13px;
+    	line-height: 18px;
+	}
+	.pricepic span {
+    	font-size: 16px;
+	}
+	.pricepic span:after{
+		width: 29px;
+	}
+}
+@media(max-width: 362px){
+	.product_pic {
+    	margin-top:15px;
+	}
+	.badge {
+   	  bottom: -80px;
+	}
+	.product_pic {
+    	margin-top: 15px;
+	}
+	.upsell2 .product_pic {
+    	margin-top: 45px;
+	}
+}
+@media(min-width: 401px) and (max-width: 480px){
+	.big_text {
+    	padding-right: 80px;
+    	font-size:47px;
+   	   line-height: 40px;
+	}
+	.upsell3 .big_text {
+    	padding-right: 80px;
+    	font-size:31px;
+   	   line-height: 40px;
+	}
+	.big_text span,
+	.upsell3 .big_text span{
+    	font-size: 55px;
+    }
+}
+@media(min-width: 360px) and (max-width: 400px){
+	.big_text,
+	.upsell3 .big_text{
+    	padding-right: 80px;
+    	font-size: 37px;
+   	    line-height: 53px;
+	}
+	.big_text span{
+    	font-size:78px;
+    }
+    .upsell3 .big_text span{
+    	font-size:58px;
+    }
+    .product_pic {
+    	margin-top: 35px;
+	}
+}
+@media(min-width: 360px) and (max-width: 374px){
+	.upsell3 .big_text{
+		font-size: 30px;
+	}
+}

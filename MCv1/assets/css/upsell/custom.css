@@ -1,0 +1,418 @@
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	background: #fafafa;
+	font-family: 'Lato', sans-serif;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a, label, span{
+	display: inline-block;
+}
+img{
+	max-width:100%;
+}
+
+/*add css*/
+
+/* @font-face {
+    font-family: 'dharma_gothic_ebold';
+    src: url('app/desktop/fonts/upsells/dharmagothice_bold_r-webfont.woff') format('woff2'),
+         url('app/desktop/fonts/upsells/dharmagothice_bold_r-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'dharma_gothic_eexbold_italic';
+    src: url('app/desktop/fonts/upsells/dharmagothice_exbold_i-webfont.woff') format('woff2'),
+         url('app/desktop/fonts/upsells/dharmagothice_exbold_i-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Gilroy';
+    src: url('app/desktop/fonts/upsells/Gilroy-ExtraBold.eot');
+    src: url('app/desktop/fonts/upsells/Gilroy-ExtraBold.eot?#iefix') format('embedded-opentype'),
+        url('app/desktop/fonts/upsells/Gilroy-ExtraBold.woff') format('woff2'),
+        url('app/desktop/fonts/upsells/Gilroy-ExtraBold.woff') format('woff'),
+        url('app/desktop/fonts/upsells/Gilroy-ExtraBold.ttf') format('truetype'),
+        url('app/desktop/fonts/upsells/Gilroy-ExtraBold.svg') format('svg');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Dharma Gothic E';
+    src: url('app/desktop/fonts/upsells/DharmaGothicE-Regular.eot');
+    src: url('app/desktop/fonts/upsells/DharmaGothicE-Regular.eot?#iefix') format('embedded-opentype'),
+        url('app/desktop/fonts/upsells/DharmaGothicE-Regular.woff') format('woff2'),
+        url('app/desktop/fonts/upsells/DharmaGothicE-Regular.woff') format('woff'),
+        url('app/desktop/fonts/upsells/DharmaGothicE-Regular.ttf') format('truetype'),
+        url('app/desktop/fonts/upsells/DharmaGothicE-Regular.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+ */
+
+
+
+.header_upsell{
+	padding: 8px 0;
+	position: relative;
+	border-bottom: 3px solid #b7b7b7;
+}
+.offer_tag{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+@media (min-width: 576px) (max-width: 991px){
+	.container {
+	    max-width: 610px;
+	}
+}
+@media (min-width: 1200px){
+	.container {
+	    max-width:910px;
+	}
+}
+.body_content{
+	padding: 45px 0 0;
+}
+.body_content h5{
+	font-size: 18px;
+	color: #cb1313;
+	font-weight: 700;
+	font-family: 'Lato', sans-serif;
+}
+.body_content h1{
+	font-size: 36px;
+	color: #000;
+	font-weight: 700;
+	margin:15px 0;
+	font-family: 'Gilroy';
+}
+.body_content p{
+	font-size: 24px;
+	line-height: 25px;
+	color: #000000;
+	font-family: arial;
+	margin-bottom: 25px;
+}
+.body_content p span{
+	font-style: italic;
+	font-weight: bold;
+}
+.product_wrap{
+	width: 865px;
+	margin: 0px auto;
+	padding: 10px 5px 5px 15px;
+	border:3px dashed #0e1118;
+}
+.product_left{
+	float: left;
+	width: 265px;
+	position: relative;
+}
+.badge{
+	position: absolute;
+	top:0px;
+	left: -5px;
+}
+.product_content{
+	position: relative;
+	text-align: left;
+	padding-left: 300px;
+}
+.product_content h2{
+	font-size: 31px;
+	color: #000;
+	position: relative;
+	left: -50px;
+	text-transform: uppercase;
+	font-family: 'dharma_gothic_ebold';
+}
+.big_text{
+	padding-right: 160px;
+	margin: -10px 0 26px;
+	font-size: 60px;
+	color: #7558dd;
+	line-height: 90px;
+	transform: rotate(-5deg);
+	-webkit-transform: rotate(-5deg);
+	-moz-transform: rotate(-5deg);
+	text-shadow: 0px 2px 2px rgba(33,6,52,0.5);
+	font-family: 'dharma_gothic_eexbold_italic';
+}
+.big_text span{
+	display: block;
+	font-size: 165px;
+	margin-left: 110px;
+}
+.sub_text{
+	font-size: 18px;
+	margin:45px 0 12px;
+	color: #000000;
+	text-transform: uppercase;
+	font-weight: 900;
+	font-style: italic;
+	font-family: 'Gilroy';
+}
+.product_content p{
+	font-size: 16px;
+	color: #4a4a4a;
+	line-height: 20px;
+}
+.price_area{
+	font-size: 24px;
+	color: #000000;
+	font-weight: 700;
+}
+.price_area span{
+	font-size: 88px;
+	margin-left: 15px;
+	display: inline-block;
+	vertical-align: middle;
+	font-family: 'dharma_gothic_ebold';
+}
+.price_tagD{
+	width: 155px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+.pricepic{
+	width: 119px;
+    height: 119px;
+    background: url(../../images/price_tag.png) right bottom no-repeat;
+    margin: -17px 0 0 34px;
+    position: relative;
+    font-size: 40px;
+    color: #fff;
+    padding-top:23px;
+    text-align: center;
+    line-height: 35px;
+    text-transform: uppercase;
+    background-size: 100%;
+    font-family: 'dharma_gothic_ebold';
+}
+.pricepic span{
+	font-size: 37px;
+	color: #fff;
+	display: block;
+	position: relative;
+}
+.pricepic span:after{
+	width: 72px;
+	height: 36px;
+	position: absolute;
+	content: "";
+	left: 25px;
+	top: 0;
+	background: url(../../images/line.png) no-repeat;
+	background-size: 100%;
+}
+.product_pic{
+	float:left;
+	margin-top: 114px;
+	width:100%;
+	position:relative;
+	}
+.upBottlebig{
+	width: 95%;
+    float: right;
+    right: -14%;
+    position: relative;
+    z-index: 2;
+	}
+.upBottlesmall{
+	position:absolute;
+	left:0;
+	width:70%;
+	top:50%;
+	transform:translateY(-50%);
+	z-index:1;
+	}
+.only_text{
+	font-size: 48px;
+	color: #cb1313;
+	margin:30px 0 35px;
+	text-transform: uppercase;
+	font-family: 'Dharma Gothic E';
+}
+.checkout_btn{
+	width: 660px;
+	height: 87px;
+	height: 88px;
+	font-size:30px;
+	color: #fff;
+	position: relative;
+	font-weight: 700;
+	text-align: center;
+	border-radius:10px;
+	cursor: pointer;
+	transition: 300ms ease-in-out;
+	-webkit-transition: 300ms ease-in-out;
+	border: 1px solid #4c6436;
+	background: rgba(159,234,97,1);
+	text-shadow: 0px 2px 2px rgba(33,6,52,0.2);
+background: -moz-linear-gradient(top, rgba(159,234,97,1) 0%, rgba(120,189,59,1) 51%, rgba(71,142,9,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(159,234,97,1)), color-stop(51%, rgba(120,189,59,1)), color-stop(100%, rgba(71,142,9,1)));
+background: -webkit-linear-gradient(top, rgba(159,234,97,1) 0%, rgba(120,189,59,1) 51%, rgba(71,142,9,1) 100%);
+background: -o-linear-gradient(top, rgba(159,234,97,1) 0%, rgba(120,189,59,1) 51%, rgba(71,142,9,1) 100%);
+background: -ms-linear-gradient(top, rgba(159,234,97,1) 0%, rgba(120,189,59,1) 51%, rgba(71,142,9,1) 100%);
+background: linear-gradient(to bottom, rgba(159,234,97,1) 0%, rgba(120,189,59,1) 51%, rgba(71,142,9,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9fea61', endColorstr='#478e09', GradientType=0 );
+}
+.checkout_btn:hover{
+	background: rgba(71,142,9,1);
+background: -moz-linear-gradient(top, rgba(71,142,9,1) 0%, rgba(120,189,59,1) 51%, rgba(159,234,97,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(71,142,9,1)), color-stop(51%, rgba(120,189,59,1)), color-stop(100%, rgba(159,234,97,1)));
+background: -webkit-linear-gradient(top, rgba(71,142,9,1) 0%, rgba(120,189,59,1) 51%, rgba(159,234,97,1) 100%);
+background: -o-linear-gradient(top, rgba(71,142,9,1) 0%, rgba(120,189,59,1) 51%, rgba(159,234,97,1) 100%);
+background: -ms-linear-gradient(top, rgba(71,142,9,1) 0%, rgba(120,189,59,1) 51%, rgba(159,234,97,1) 100%);
+background: linear-gradient(to bottom, rgba(71,142,9,1) 0%, rgba(120,189,59,1) 51%, rgba(159,234,97,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#478e09', endColorstr='#9fea61', GradientType=0 );
+}
+.checkout_btn:after{
+	width: 8px;
+	height: 26px;
+	position: absolute;
+	content: "";
+	top: 50%;
+	right: 130px;
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+	background: url(../../images/arrow.png) no-repeat;
+}
+.pic2{
+	margin: 20px 0;
+}
+.dont_text{
+	font-size: 12px;
+	color: #8e8e8e;
+	font-family: arial;
+	text-transform: uppercase;
+}
+.dont_text i,
+.dont_text span{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.comnt_area{
+	background: #fff;
+	padding: 50px 0 80px;
+	border-top:3px solid #b7b7b7;
+	border-bottom:3px solid #b7b7b7;
+}
+.connection_text span{
+	display: block;
+	margin: 0 0 20px;
+	text-align: center;
+}
+.star_blog{
+	color: #000;
+	margin-bottom: 30px;
+}
+.star_blog h4{
+	font-size: 18px;
+	font-weight: 900;
+	margin: 20px 0;
+}
+.star_blog span{
+	display: block;
+	font-size: 16px;
+}
+.star_blog p{
+	font-size: 16px;
+	line-height: 24px;
+	margin-top: 20px;
+}
+.footer{
+	padding: 30px 0 60px;
+	background: #fff;
+}
+.footer ul li{
+	margin: 0 4px;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+}
+/*.footer ul li:after{
+	position: absolute;
+	content: "";
+	width: 1px;
+	height: 11px;
+	background: #444444;
+	right: -4px;
+	top: 50%;
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+}*/
+.footer ul li a{
+	display: block;
+	font-size: 12px;
+	color: #2245dc;
+}
+.footer span{
+	display: block;
+	margin:20px 0 0;
+	font-size: 12px;
+}
+.upsell2 .big_text{
+	font-size: 63px;
+}
+.upsell2 .big_text span{
+	font-size: 128px;
+	margin-left: 8px;
+}
+.upsell2 .sub_text{
+	font-size: 30px;
+}
+.upsell3 .big_text{
+	font-size: 69px;
+}
+.upsell3 .big_text span{
+	font-size: 158px;
+	margin-left: 12px;
+}

@@ -1,0 +1,18 @@
+# Secrets and production configuration
+/app/configs/config.php
+/MCv1/app/configs/config.php
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Local logs and temporary files
+*.log
+.DS_Store
+Thumbs.db
+is-dtc-ami.zip
+
+# Local test files
+/app/src/test.php
+/MCv1/app/src/test.php
