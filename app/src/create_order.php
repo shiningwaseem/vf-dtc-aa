@@ -195,6 +195,14 @@
 		}
 	}
 
+	// Card-brand discount (Visa / Mastercard): real price override on the order.
+	$pkgPosted    = isset($_POST["package"]) ? (int)$_POST["package"] : 5;
+	$listPrice    = ($pkgPosted === 3) ? (float)$configs->bottle_price_3 : (($pkgPosted === 1) ? (float)$configs->bottle_price_1 : (float)$configs->bottle_price_5);
+	$cardDiscount = get_card_discount($data["cardNumber"], $listPrice);
+	if ($cardDiscount > 0) {
+		$data["product1_price"] = number_format($listPrice - $cardDiscount, 2, '.', '');
+	}
+
 	$_SESSION["cc_number"] = $_POST["fields_cc_number"];
 	$_SESSION["cc_exp_month"] = $_POST["fields_expmonth"];
 	$_SESSION["cc_exp_year"] = $_POST["fields_expyear"];
@@ -210,6 +218,7 @@
 			: ((isset($_POST["package"]) && (int)$_POST["package"] === 1)
 				? (float)$configs->bottle_price_1
 				: (float)$configs->bottle_price_5);
+		$calcPrice = max($calcPrice - $cardDiscount, 0);
 
 		$prospectId = $_POST['fields_prospect_id'] ?? ($_SESSION['prospectId'] ?? ($data['orderId'] ?? null));
 
@@ -249,6 +258,9 @@
 		if (isset($_POST["package"]) && $_POST["package"] == 1) {
 			$_SESSION["total"] = 119.91;
 		}
+
+		$_SESSION["total"] = round($_SESSION["total"] - $cardDiscount, 2);
+		$_SESSION["card_discount"] = $cardDiscount;
 
 		$_SESSION["orderId"] = $resp->message->orderId;
 

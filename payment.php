@@ -473,6 +473,9 @@ if (!isset($_SESSION['token'])) {
                                         <div class="cc-text-validation-error" style="display: none;"
                                             bis_skin_checked="1">*Incorrect Credit Card number.</div>
                                         <div class="accept-icon" bis_skin_checked="1"></div>
+                                        <?php if (!empty($configs->card_discount->enabled)) { ?>
+                                        <div id="card-discount-note" data-amount="<?= number_format((float)$configs->card_discount->amount, 0); ?>" style="display:none;margin:6px 0 10px;padding:8px 10px;border-radius:4px;background:#e8f7ec;border:1px solid #2e9e4f;color:#17692f;font-weight:700;font-size:13px;line-height:1.3;"></div>
+                                        <?php } ?>
                                     </div>
 
                                     <div class="row margin-bottom-5" bis_skin_checked="1">
@@ -1375,6 +1378,7 @@ if (!isset($_SESSION['token'])) {
     </script>
 
 
+    <script type="text/javascript" src="assets/js/card_discount.js"></script>
 </body>
 
 </html>

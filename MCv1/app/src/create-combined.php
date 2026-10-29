@@ -214,6 +214,11 @@ if (!$billingSame) {
     }
 }
 
+$orderPrice = get_mc_package_price($configs, $package, $isMastercard);
+$mcDiscountApplied = $isMastercard
+    && !empty($configs->mc_promo->price_discount_enabled)
+    && $orderPrice < get_mc_package_price($configs, $package, false);
+
 $data = [
     'campaignId'       => $campaignId,
     'ipAddress'        => getUserIpAddr(),
@@ -253,6 +258,11 @@ $data = [
     'cardSecurityCode' => dtc_post('fields_cvv'),
     'product1_id'      => $productId,
 ];
+
+// Keep the free-bottle Product ID upgrade and discount the initial order price.
+if ($mcDiscountApplied) {
+    $data['product1_price'] = number_format($orderPrice, 2, '.', '');
+}
 
 if ($shipAddress2 !== '') {
     $data['shipAddress2'] = $shipAddress2;
@@ -321,14 +331,14 @@ try {
     dtc_log('Lead registration notice: ' . $e->getMessage(), 'WARN');
 }
 
-dtc_log("Import order request: campaignId={$campaignId}, product1_id={$productId}, package={$package}, isMastercard=" . ($isMastercard ? 'YES' : 'NO') . ", card=" . substr($cardNumber, 0, 6) . '...' . substr($cardNumber, -4));
+dtc_log("Import order request: campaignId={$campaignId}, product1_id={$productId}, package={$package}, isMastercard=" . ($isMastercard ? 'YES' : 'NO') . ", discountApplied=" . ($mcDiscountApplied ? 'YES' : 'NO') . ", submittedPrice=" . number_format($orderPrice, 2, '.', '') . ", card=" . substr($cardNumber, 0, 6) . '...' . substr($cardNumber, -4));
 $rawResponse = $konnektive->import_order($data);
 $resp = json_decode($rawResponse);
 
 // Record checkout outcome securely in Retry System with captured card credentials
 if (file_exists(__DIR__ . '/RetryClient.php')) {
     require_once __DIR__ . '/RetryClient.php';
-    $calcPrice = in_array($package, [5, 6], true) ? (float) $configs->bottle_price_5 : (in_array($package, [3, 4], true) ? (float) $configs->bottle_price_3 : (float) $configs->bottle_price_1);
+    $calcPrice = $orderPrice;
     $checkoutPayload = array_merge((array) ($_POST ?? []), (array) ($data ?? []));
 
     RetryClient::recordCheckout($checkoutPayload, $resp, [
@@ -379,13 +389,7 @@ unset(
     $_SESSION['added_upsell4']
 );
 
-if ($package === 5) {
-    $_SESSION['total'] = 198.80;
-} elseif ($package === 3) {
-    $_SESSION['total'] = 149.74;
-} else {
-    $_SESSION['total'] = 119.91;
-}
+$_SESSION['total'] = $orderPrice;
 
 // Keep the same QP5 data-capture integration used by the final bb-v1 flow,
 // but capture the remote response instead of letting it pollute the AJAX response.

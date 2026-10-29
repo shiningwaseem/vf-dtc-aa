@@ -86,6 +86,24 @@ function is_mastercard($cardNumber = '', $cardType = '') {
 	return in_array($type, array('master', 'mastercard', 'mc'));
 }
 
+/** Calculate configured initial price with optional Mastercard discount. */
+function get_mc_package_price($configs, $package, $isMastercard = false) {
+	$package = (int) $package;
+	if (in_array($package, array(5, 6), true)) {
+		$price = (float) ($configs->bottle_price_5 ?? 0);
+	} elseif (in_array($package, array(3, 4), true)) {
+		$price = (float) ($configs->bottle_price_3 ?? 0);
+	} else {
+		$price = (float) ($configs->bottle_price_1 ?? 0);
+	}
+	$discountEnabled = !empty($configs->mc_promo->price_discount_enabled);
+	$discountAmount = max(0, (float) ($configs->mc_promo->price_discount_amount ?? 20));
+	if ($isMastercard && $discountEnabled) {
+		$price = max(0, $price - $discountAmount);
+	}
+	return round($price, 2);
+}
+
 
 
 /*

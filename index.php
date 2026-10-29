@@ -478,6 +478,9 @@ if ($mobile_detect->isMobile() && !$mobile_detect->isTablet()) {
                                         <div class="cc-text-validation-error" style="display: none;"
                                             bis_skin_checked="1">*Incorrect Credit Card number.</div>
                                         <div class="accept-icon" bis_skin_checked="1"></div>
+                                        <?php if (!empty($configs->card_discount->enabled)) { ?>
+                                        <div id="card-discount-note" data-amount="<?= number_format((float)$configs->card_discount->amount, 0); ?>" style="display:none;margin:6px 0 10px;padding:8px 10px;border-radius:4px;background:#e8f7ec;border:1px solid #2e9e4f;color:#17692f;font-weight:700;font-size:13px;line-height:1.3;"></div>
+                                        <?php } ?>
                                     </div>
 
                                     <div class="row margin-bottom-5" bis_skin_checked="1">
@@ -1379,6 +1382,318 @@ if ($mobile_detect->isMobile() && !$mobile_detect->isTablet()) {
         document.querySelectorAll("#cardNumber").forEach(protectInput);
     </script>
 
+
+    <script type="text/javascript" src="assets/js/card_discount.js"></script>
+    
+<!-- Mastercard $20 Discount Side Banner -->
+<div id="mcDiscountBanner" class="mc-discount-banner">
+
+    <button
+        type="button"
+        id="mcBannerToggle"
+        class="mc-banner-toggle"
+        aria-label="Minimize discount banner"
+        aria-expanded="true">
+        &#10095;
+    </button>
+
+    <div class="mc-banner-content">
+
+        <div class="mc-brand">
+            <span class="mc-circle mc-red"></span>
+            <span class="mc-circle mc-orange"></span>
+        </div>
+
+        <div class="mc-brand-name">mastercard</div>
+
+        <div class="mc-divider"></div>
+
+        <div class="mc-offer-heading">SPECIAL OFFER</div>
+
+        <div class="mc-pay-text">PAY WITH</div>
+        <div class="mc-card-name">MASTERCARD</div>
+
+        <div class="mc-and-get">AND GET</div>
+        <div class="mc-discount-amount">$20</div>
+        <div class="mc-off-text">OFF</div>
+        <div class="mc-order-text">ON YOUR ORDER</div>
+
+        <div class="mc-divider"></div>
+
+        <div class="mc-exclusive">
+            <span class="mc-crown">&#9813;</span>
+            EXCLUSIVE DISCOUNT
+        </div>
+
+        <div class="mc-banner-small">
+            Discount applies when an eligible Mastercard is used.
+        </div>
+
+    </div>
+</div>
+
+<style>
+.mc-discount-banner {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+
+    width: 190px;
+    height: 80vh;
+    height: 80dvh;
+    max-height: 650px;
+    min-height: 400px;
+
+    box-sizing: border-box;
+    z-index: 99999;
+    overflow: visible;
+
+    background: linear-gradient(
+        180deg,
+        #fffdf3 0%,
+        #f7f3df 100%
+    );
+
+    color: #064b36;
+    border-left: 3px solid #c9a64d;
+    box-shadow: -3px 0 15px rgba(0, 0, 0, 0.12);
+    font-family: Arial, Helvetica, sans-serif;
+
+    transition: transform .3s ease;
+}
+
+.mc-banner-content {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    padding: 20px 13px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.mc-banner-toggle {
+    position: absolute;
+    top: 50%;
+    left: -24px;
+    transform: translateY(-50%);
+
+    width: 25px;
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #07543d;
+    color: #fff;
+    border: 0;
+    border-radius: 10px 0 0 10px;
+
+    font-size: 21px;
+    font-weight: bold;
+    cursor: pointer;
+
+    box-shadow: -2px 2px 7px rgba(0, 0, 0, .14);
+}
+
+.mc-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 43px;
+    margin-bottom: 5px;
+    flex-shrink: 0;
+}
+
+.mc-circle {
+    display: block;
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+}
+
+.mc-red {
+    background: #eb001b;
+    margin-right: -12px;
+}
+
+.mc-orange {
+    background: #f79e1b;
+}
+
+.mc-brand-name {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    letter-spacing: -.5px;
+}
+
+.mc-divider {
+    width: 82%;
+    height: 2px;
+    flex-shrink: 0;
+    background: #c9a64d;
+    margin: 0 auto 16px;
+}
+
+.mc-offer-heading {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+    margin-bottom: 16px;
+}
+
+.mc-pay-text {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.mc-card-name {
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+.mc-and-get {
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+.mc-discount-amount {
+    color: #07543d;
+    font-size: clamp(44px, 5vw, 64px);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-top: 5px;
+}
+
+.mc-off-text {
+    color: #c49b3e;
+    font-size: 38px;
+    line-height: 1.1;
+    font-weight: 900;
+}
+
+.mc-order-text {
+    font-size: 12px;
+    margin: 10px 0 18px;
+}
+
+.mc-exclusive {
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: .6px;
+    line-height: 1.6;
+}
+
+.mc-crown {
+    display: block;
+    font-size: 25px;
+    color: #c49b3e;
+    margin-bottom: 5px;
+}
+
+.mc-banner-small {
+    font-size: 10px;
+    line-height: 1.5;
+    color: #385c4e;
+    margin-top: 12px;
+}
+
+/* Minimize banner; keep the arrow visible */
+.mc-discount-banner.mc-collapsed {
+    transform: translate(100%, -50%);
+    box-shadow: none;
+}
+
+.mc-discount-banner.mc-collapsed .mc-banner-toggle {
+    left: -30px;
+    width: 32px;
+}
+
+/* Short laptop screens */
+@media (max-height: 650px) {
+    .mc-discount-banner {
+        height: 86vh;
+        height: 86dvh;
+        min-height: 0;
+    }
+
+    .mc-banner-content {
+        justify-content: flex-start;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .mc-brand-name {
+        margin-bottom: 8px;
+    }
+
+    .mc-divider {
+        margin-bottom: 9px;
+    }
+
+    .mc-offer-heading {
+        margin-bottom: 8px;
+    }
+
+    .mc-and-get {
+        margin-top: 8px;
+    }
+
+    .mc-order-text {
+        margin-bottom: 10px;
+    }
+
+    .mc-banner-small {
+        margin-top: 8px;
+    }
+}
+
+/* Mobile: keep checkout unobstructed */
+@media (max-width: 767px) {
+    .mc-discount-banner {
+        display: none;
+    }
+}
+</style>
+
+<script>
+(function () {
+    var banner = document.getElementById('mcDiscountBanner');
+    var toggle = document.getElementById('mcBannerToggle');
+
+    if (!banner || !toggle) return;
+
+    toggle.addEventListener('click', function () {
+        var collapsed = banner.classList.toggle('mc-collapsed');
+
+        toggle.innerHTML = collapsed ? '&#10094;' : '&#10095;';
+
+        toggle.setAttribute(
+            'aria-expanded',
+            String(!collapsed)
+        );
+
+        toggle.setAttribute(
+            'aria-label',
+            collapsed
+                ? 'Expand discount banner'
+                : 'Minimize discount banner'
+        );
+    });
+})();
+</script>
+</body>
 
 </body>
 

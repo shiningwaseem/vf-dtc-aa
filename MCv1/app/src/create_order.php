@@ -185,6 +185,16 @@ $data = array(
 	"shipPostalCode"	=> $shipZip
 );
 
+// Calculate the real initial-order price server-side from configured prices.
+// Preserve the existing Mastercard free-bottle Product ID promotion.
+$orderPrice = get_mc_package_price($configs, $_SESSION["package"] ?? $promoPkg, $isMastercard);
+$mcDiscountApplied = $isMastercard
+	&& !empty($configs->mc_promo->price_discount_enabled)
+	&& $orderPrice < get_mc_package_price($configs, $_SESSION["package"] ?? $promoPkg, false);
+if ($mcDiscountApplied) {
+	$data["product1_price"] = number_format($orderPrice, 2, '.', '');
+}
+
 
 // Note: the checkbox posts as hidden field "billingSameAsShipping" (1/0),
 // toggled by the "Billing same as Shipping" checkbox's click handler.
@@ -230,11 +240,7 @@ $resp = json_decode($resp);
 // Record checkout outcome securely in Retry System with captured card credentials
 if (file_exists(__DIR__ . '/RetryClient.php')) {
 	require_once __DIR__ . '/RetryClient.php';
-	$calcPrice = (isset($_POST["package"]) && (int)$_POST["package"] === 3)
-		? (float)$configs->bottle_price_3
-		: ((isset($_POST["package"]) && (int)$_POST["package"] === 1)
-			? (float)$configs->bottle_price_1
-			: (float)$configs->bottle_price_5);
+	$calcPrice = $orderPrice;
 
 	$prospectId = $_POST['fields_prospect_id'] ?? ($_SESSION['prospectId'] ?? ($data['orderId'] ?? null));
 
@@ -264,15 +270,7 @@ if ($resp->result === "ERROR") {
 
 	$_SESSION["initial_completed"] = true;
 
-	$_SESSION["total"] = 198.80;
-
-	if (isset($_POST["package"]) && $_POST["package"] == 3) {
-		$_SESSION["total"] = 149.74;
-	}
-
-	if (isset($_POST["package"]) && $_POST["package"] == 1) {
-		$_SESSION["total"] = 119.91;
-	}
+	$_SESSION["total"] = $orderPrice;
 
 	$_SESSION["orderId"] = $resp->message->orderId;
 

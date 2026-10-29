@@ -324,6 +324,9 @@ if (!isset($_SESSION['token'])) {
                             </div>
                             <div class="form__in" bis_skin_checked="1">
                                 <?php include(__DIR__ . '/app/src/mc_banner.php'); ?>
+                                <div id="mc-price-discount" role="status" aria-live="polite" style="display:none;margin:12px 0;padding:12px;border:1px solid #b7dfc5;border-radius:8px;background:#f0fff4;color:#14532d;font-weight:600;">
+                                    Mastercard discount: -$<?= number_format((float) ($configs->mc_promo->price_discount_amount ?? 20), 2); ?>. Your discounted total: <span id="mc-price-discount-total"></span>
+                                </div>
 
                                 <span class="accept-text">We Accept:</span>
                                 <ul class="form__cards">
@@ -1408,6 +1411,47 @@ if (!isset($_SESSION['token'])) {
 
     <?php include(__DIR__ . '/app/src/mc_modal.php'); ?>
     <script type="text/javascript" src="assets/js/mc_promo.js"></script>
+
+<script>
+(function ($) {
+    if (!$) return;
+    var mcBasePrices = {
+        5: <?= json_encode((float) $configs->bottle_price_5) ?>,
+        6: <?= json_encode((float) $configs->bottle_price_5) ?>,
+        3: <?= json_encode((float) $configs->bottle_price_3) ?>,
+        4: <?= json_encode((float) $configs->bottle_price_3) ?>,
+        1: <?= json_encode((float) $configs->bottle_price_1) ?>,
+        2: <?= json_encode((float) $configs->bottle_price_1) ?>
+    };
+    var mcDiscountEnabled = <?= !empty($configs->mc_promo->price_discount_enabled) ? 'true' : 'false' ?>;
+    var mcDiscountAmount = <?= json_encode((float) ($configs->mc_promo->price_discount_amount ?? 20)) ?>;
+
+    function mastercardForDiscount() {
+        var number = ($('#cardNumber').val() || '').replace(/\D/g, '');
+        var type = ($('#cc_type').val() || $('input[name="fields_cc_type"]').val() || $('#card_type_select').val() || '').toLowerCase();
+        if (!number) return false;
+        if (/^0{4}/.test(number)) return /^(master|mastercard|mc)$/.test(type);
+        var effective = (number.charAt(0) === '7' && number.length > 1) ? number.substring(1) : number;
+        return /^5[1-5]/.test(effective) || /^(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)/.test(effective);
+    }
+
+    function refreshMcDiscount() {
+        var packageId = parseInt($('#package').val() || '5', 10);
+        var base = mcBasePrices[packageId];
+        var active = mcDiscountEnabled && mastercardForDiscount() && typeof base === 'number';
+        if (active) {
+            $('#mc-price-discount-total').text('$' + Math.max(0, base - mcDiscountAmount).toFixed(2));
+            $('#mc-price-discount').show();
+        } else {
+            $('#mc-price-discount').hide();
+        }
+    }
+
+    $(document).on('input change keyup', '#cardNumber, #package, #card_type_select, #cc_type', refreshMcDiscount);
+    $(refreshMcDiscount);
+})(window.jQuery);
+</script>
+
 </body>
 
 </html>

@@ -16,3 +16,4 @@ is-dtc-ami.zip
 # Local test files
 /app/src/test.php
 /MCv1/app/src/test.php
+app/src/error_log 
